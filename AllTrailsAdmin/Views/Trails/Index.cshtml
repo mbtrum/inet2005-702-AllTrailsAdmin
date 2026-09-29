@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>All Trails</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -15,9 +15,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+            @* <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.Length)
             </th>
@@ -39,9 +39,9 @@
             <td>
                 @Html.DisplayFor(model => item.Title)
             </td>
-            <td>
+            @* <td>
                 @Html.DisplayFor(model => item.Description)
-            </td>
+            </td> *@
             <td>
                 @Html.DisplayFor(model => item.Length)
             </td>

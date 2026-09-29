@@ -15,7 +15,11 @@ public class TrailsController : Controller
     // GET: TRAILS
     public async Task<IActionResult> Index()    
     {
-        return View(await _context.Trail.ToListAsync());
+        var trails = await _context.Trail
+            .OrderByDescending(t => t.CreatedDate)
+            .ToListAsync();
+
+        return View(trails);
     }
 
     // GET: TRAILS/Details/5

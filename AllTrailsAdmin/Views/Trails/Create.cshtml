@@ -4,51 +4,49 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add New Trail</h1>
 
-<h4>Trail</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Length" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Length" class="form-label"></label>
                 <input asp-for="Length" class="form-control" />
                 <span asp-validation-for="Length" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="ElevationGain" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="ElevationGain" class="form-label"></label>
                 <input asp-for="ElevationGain" class="form-control" />
                 <span asp-validation-for="ElevationGain" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Location" class="form-label"></label>
                 <input asp-for="Location" class="form-control" />
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="CreatedDate" class="form-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
