@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AllTrailsAdmin.Models;
@@ -15,9 +14,8 @@ public class TrailsController : Controller
     // GET: TRAILS
     public async Task<IActionResult> Index()    
     {
-        var trails = await _context.Trail
-            .OrderByDescending(t => t.CreatedDate)
-            .ToListAsync();
+        // Retrieve all trails from the database
+        List<Trail> trails = await _context.Trail.ToListAsync();
 
         return View(trails);
     }
@@ -25,13 +23,16 @@ public class TrailsController : Controller
     // GET: TRAILS/Details/5
     public async Task<IActionResult> Details(int? id)
     {
+        // Check if the id parameter is null from URL
         if (id == null)
         {
-            return NotFound();
+            return NotFound(); // return a 404 Not Found response if the id is null
         }
 
-        var trail = await _context.Trail
-            .FirstOrDefaultAsync(m => m.Id == id);
+        // Retrieve the trail with the specified id from the database
+        var trail = await _context.Trail.FirstOrDefaultAsync(m => m.Id == id);
+
+        // Check if the trail exists in the database
         if (trail == null)
         {
             return NotFound();
@@ -53,12 +54,16 @@ public class TrailsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail)
     {
+        // Check if the model state is valid before adding the trail to the database
         if (ModelState.IsValid)
         {
             _context.Add(trail);
             await _context.SaveChangesAsync();
+
+            // Redirect to the Index action after successfully creating the trail
             return RedirectToAction(nameof(Index));
         }
+
         return View(trail);
     }
 
@@ -71,6 +76,7 @@ public class TrailsController : Controller
         }
 
         var trail = await _context.Trail.FindAsync(id);
+
         if (trail == null)
         {
             return NotFound();

@@ -26,6 +26,7 @@ namespace AllTrailsAdmin.Models
         [Required]
         public string Location { get; set; } = string.Empty; // address, city, province... display Google map later
 
+        [DisplayFormat(DataFormatString = "{0:MMMM d, yyyy}")]
         [Display(Name = "Created")]
         [Required]
         public DateTime CreatedDate { get; set; } = DateTime.Now; // default to current timestamp
