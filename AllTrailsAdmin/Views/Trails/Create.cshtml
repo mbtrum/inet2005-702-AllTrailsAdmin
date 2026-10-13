@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="mb-3">
@@ -19,7 +19,8 @@
 
             <div class="mb-3">
                 <label asp-for="Description" class="form-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
@@ -41,11 +42,17 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
+            @* <div class="mb-3">
                 <label asp-for="CreatedDate" class="form-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div> *@
+
+            <div class="mb-3">
+                <label>Image Upload</label>
+                <input type="file" id="ImageFile" name="ImageFile" />
             </div>
+
             <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

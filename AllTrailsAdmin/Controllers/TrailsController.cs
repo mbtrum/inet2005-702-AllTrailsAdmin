@@ -52,7 +52,7 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail)
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail, IFormFile ImageFile) // collect inputs and file input from form
     {
         // Check if the model state is valid before adding the trail to the database
         if (ModelState.IsValid)
