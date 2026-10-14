@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 
 namespace AllTrailsAdmin.Services
 {
@@ -32,10 +33,18 @@ namespace AllTrailsAdmin.Services
 
             var blobClient = containerClient.GetBlobClient(fileName);
 
+            var options = new BlobUploadOptions
+            {
+                HttpHeaders = new BlobHttpHeaders
+                {
+                    ContentType = file.ContentType
+                }
+            };
+
             // file I/O
             using (var stream = file.OpenReadStream())
             {
-                await blobClient.UploadAsync(stream, overwrite: true);
+                await blobClient.UploadAsync(stream, options);
             }
 
             // return the URL for the saved file
