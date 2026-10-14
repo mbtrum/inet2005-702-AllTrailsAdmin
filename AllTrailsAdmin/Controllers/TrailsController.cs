@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AllTrailsAdmin.Models;
+using AllTrailsAdmin.Services;
 
 public class TrailsController : Controller
 {
     private readonly AllTrailsAdminContext _context;
+    private readonly AzureStorageService _blobService;
 
-    public TrailsController(AllTrailsAdminContext context)
+    public TrailsController(AllTrailsAdminContext context, AzureStorageService blobService)
     {
         _context = context;
+        _blobService = blobService;
     }
 
     // GET: TRAILS
@@ -47,16 +50,27 @@ public class TrailsController : Controller
         return View();
     }
 
+    /*
+     *  TO-DO: Handle image being required
+     */
+
+
     // POST: TRAILS/Create
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail, IFormFile ImageFile) // collect inputs and file input from form
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail, IFormFile imageFile) // collect inputs and file input from form
     {
         // Check if the model state is valid before adding the trail to the database
         if (ModelState.IsValid)
         {
+            // Save file in Azure Storage
+            string imageUrl = await _blobService.UploadFileAsync(imageFile, imageFile.FileName); // use the original filename
+            // Save image Url in Trail record
+            trail.ImageUrl = imageUrl;
+
+            // Save record in database
             _context.Add(trail);
             await _context.SaveChangesAsync();
 

@@ -26,6 +26,9 @@ namespace AllTrailsAdmin.Models
         [Required]
         public string Location { get; set; } = string.Empty; // address, city, province... display Google map later
 
+        // Url to image stored in Azure Storage
+        public string ImageUrl { get; set; } = string.Empty;
+
         [DisplayFormat(DataFormatString = "{0:MMMM d, yyyy}")]
         [Display(Name = "Created")]
         [Required]
