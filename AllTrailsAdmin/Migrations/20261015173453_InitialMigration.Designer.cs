@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AllTrailsAdmin.Migrations
 {
     [DbContext(typeof(AllTrailsAdminContext))]
-    [Migration("20260924173024_InitialMigration")]
+    [Migration("20261015173453_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace AllTrailsAdmin.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -37,10 +37,15 @@ namespace AllTrailsAdmin.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("ElevationGain")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Length")
                         .HasColumnType("float");
@@ -51,7 +56,8 @@ namespace AllTrailsAdmin.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

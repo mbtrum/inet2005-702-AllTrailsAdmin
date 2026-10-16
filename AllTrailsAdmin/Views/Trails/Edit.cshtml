@@ -12,7 +12,10 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageUrl" />
+
             <div class="mb-3">
                 <label asp-for="Title" class="form-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -42,6 +45,9 @@
                 <label asp-for="CreatedDate" class="form-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <img src="@Model.ImageUrl" alt="@Model.Title" class="w-25" />
             </div>
             <div class="mb-3">
                 <input type="submit" value="Save" class="btn btn-primary" />

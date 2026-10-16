@@ -66,7 +66,12 @@ public class TrailsController : Controller
         if (ModelState.IsValid)
         {
             // Save file in Azure Storage
-            string imageUrl = await _blobService.UploadFileAsync(imageFile, imageFile.FileName); // use the original filename
+
+            //
+            // TO:DO: we need unique file names so they don't get overwritten. Use a GUID.jpg
+            //
+
+            string imageUrl = await _blobService.UploadFileAsync(imageFile, imageFile.FileName);
             // Save image Url in Trail record
             trail.ImageUrl = imageUrl;
 
@@ -103,7 +108,7 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate,ImageUrl")] Trail trail)
     {
         if (id != trail.Id)
         {

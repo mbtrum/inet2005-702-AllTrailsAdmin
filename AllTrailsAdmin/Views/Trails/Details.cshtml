@@ -4,55 +4,47 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="mb-4">Details  - @Html.DisplayFor(model => model.Title)</h1>
 
-<div>
-    <h4>Trail</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Length)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Length)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ElevationGain)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ElevationGain)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
-</div>
+<img src="@Model.ImageUrl" alt="@Model.Title" class="w-50" />
+
+<dl>
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Description)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Length)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Length)
+    </dd>
+
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.ElevationGain)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.ElevationGain)
+    </dd>
+
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.Location)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.Location)
+    </dd>
+
+    <dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.CreatedDate)
+    </dt>
+    <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.CreatedDate)
+    </dd>
+</dl>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

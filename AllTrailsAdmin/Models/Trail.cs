@@ -14,11 +14,12 @@ namespace AllTrailsAdmin.Models
         [Required]
         public string Description { get; set; } = string.Empty;
 
+        [Display(Name = "Length (km)")]
         [Range(0.1, 28000)] // trans canada trail
         [Required]
         public double Length { get; set; } // 7.9km
 
-        [Display(Name="Elevation Gain")]
+        [Display(Name="Elevation Gain (m)")]
         [Range(-441, 30000)] // dead sea to mt. everest
         [Required]
         public int ElevationGain { get; set; } // 200m
