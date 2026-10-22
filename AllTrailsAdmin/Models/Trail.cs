@@ -1,16 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace AllTrailsAdmin.Models
 {
     public class Trail
     {
+        // primary key
         public int Id { get; set; }
 
-        [StringLength(50)]
+        // foreign key
+        public int CategoryId { get; set; }
+
+        // navigation property
+        [ValidateNever]
+        public Category Category { get; set; } = null!;
+
+
+
+        [StringLength(100)]
         [Required]
         public string Title { get; set; } = string.Empty;
 
-        [StringLength(500)]
+        [StringLength(2500)]
         [Required]
         public string Description { get; set; } = string.Empty;
 
@@ -29,6 +40,9 @@ namespace AllTrailsAdmin.Models
 
         // Url to image stored in Azure Storage
         public string ImageUrl { get; set; } = string.Empty;
+
+        //// A trail belongs to one category (REMOVED)
+        //public string Category { get; set; } = string.Empty;
 
         [DisplayFormat(DataFormatString = "{0:MMMM d, yyyy}")]
         [Display(Name = "Created")]

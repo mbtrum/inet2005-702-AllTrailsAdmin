@@ -60,18 +60,27 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate")] Trail trail, IFormFile imageFile) // collect inputs and file input from form
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,Category,CreatedDate")] Trail trail, IFormFile? imageFile) // collect inputs and file input from form
     {
+        // Validate if image file is uploaded
+        if(imageFile == null)
+        {
+            // Manually add a validation failure
+            ModelState.AddModelError("ImageFile", "The image file upload is required.");
+        }
+
         // Check if the model state is valid before adding the trail to the database
         if (ModelState.IsValid)
         {
             // Save file in Azure Storage
 
-            //
-            // TO:DO: we need unique file names so they don't get overwritten. Use a GUID.jpg
-            //
+           
+            // Use a unique file name so files don't get overwritten. E.g. GUID.jpg            
+            var extension = Path.GetExtension(imageFile!.FileName);
+            var uniqueFileName = $"{Guid.NewGuid()}{extension}";
 
-            string imageUrl = await _blobService.UploadFileAsync(imageFile, imageFile.FileName);
+
+            string imageUrl = await _blobService.UploadFileAsync(imageFile, uniqueFileName);
             // Save image Url in Trail record
             trail.ImageUrl = imageUrl;
 
@@ -108,7 +117,7 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,CreatedDate,ImageUrl")] Trail trail)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,Category,CreatedDate,ImageUrl")] Trail trail)
     {
         if (id != trail.Id)
         {
