@@ -47,6 +47,13 @@
         @Html.DisplayFor(model => model.Location)
     </dd>
 
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CategoryId)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Category.Title) @* Category nav property *@
+    </dd>
+
     <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.CreatedDate)
     </dt>

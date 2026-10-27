@@ -41,6 +41,11 @@
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
 
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+            </div>
+
             @* <div class="mb-3">
                 <label asp-for="CreatedDate" class="form-label"></label>
                 <input asp-for="CreatedDate" class="form-control" />

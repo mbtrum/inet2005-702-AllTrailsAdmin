@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.ElevationGain)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedDate)
@@ -55,7 +55,7 @@
                 @Html.DisplayFor(model => item.ElevationGain)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Location)
+                @Html.DisplayFor(model => item.Category.Title) @* Category nav property *@
             </td>
             <td>
                 @Html.DisplayFor(model => item.CreatedDate)

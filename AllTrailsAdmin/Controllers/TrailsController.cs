@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AllTrailsAdmin.Models;
 using AllTrailsAdmin.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 public class TrailsController : Controller
 {
@@ -18,7 +19,9 @@ public class TrailsController : Controller
     public async Task<IActionResult> Index()    
     {
         // Retrieve all trails from the database
-        List<Trail> trails = await _context.Trail.ToListAsync();
+        List<Trail> trails = await _context.Trail
+            .Include(m => m.Category)
+            .ToListAsync();
 
         return View(trails);
     }
@@ -33,7 +36,9 @@ public class TrailsController : Controller
         }
 
         // Retrieve the trail with the specified id from the database
-        var trail = await _context.Trail.FirstOrDefaultAsync(m => m.Id == id);
+        var trail = await _context.Trail
+            .Include(m => m.Category)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
         // Check if the trail exists in the database
         if (trail == null)
@@ -47,6 +52,10 @@ public class TrailsController : Controller
     // GET: TRAILS/Create
     public IActionResult Create()
     {
+        // create a select list for the categories
+        var categories = _context.Category.ToList();
+        ViewBag.CategoryId = new SelectList(categories, "Id", "Title");
+
         return View();
     }
 
@@ -60,7 +69,7 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,Category,CreatedDate")] Trail trail, IFormFile? imageFile) // collect inputs and file input from form
+    public async Task<IActionResult> Create([Bind("Id,Title,Description,Length,ElevationGain,Location,CategoryId,CreatedDate")] Trail trail, IFormFile? imageFile) // collect inputs and file input from form
     {
         // Validate if image file is uploaded
         if(imageFile == null)
@@ -73,7 +82,6 @@ public class TrailsController : Controller
         if (ModelState.IsValid)
         {
             // Save file in Azure Storage
-
            
             // Use a unique file name so files don't get overwritten. E.g. GUID.jpg            
             var extension = Path.GetExtension(imageFile!.FileName);
@@ -92,6 +100,10 @@ public class TrailsController : Controller
             return RedirectToAction(nameof(Index));
         }
 
+        // create a select list for the categories
+        var categories = _context.Category.ToList();
+        ViewBag.CategoryId = new SelectList(categories, "Id", "Title");
+
         return View(trail);
     }
 
@@ -109,6 +121,11 @@ public class TrailsController : Controller
         {
             return NotFound();
         }
+
+        // create a select list for the categories
+        var categories = _context.Category.ToList();
+        ViewBag.CategoryId = new SelectList(categories, "Id", "Title");
+
         return View(trail);
     }
 
@@ -117,7 +134,7 @@ public class TrailsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,Category,CreatedDate,ImageUrl")] Trail trail)
+    public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,Description,Length,ElevationGain,Location,CategoryId,CreatedDate,ImageUrl")] Trail trail)
     {
         if (id != trail.Id)
         {
@@ -144,6 +161,11 @@ public class TrailsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+
+        // create a select list for the categories
+        var categories = _context.Category.ToList();
+        ViewBag.CategoryId = new SelectList(categories, "Id", "Title");
+
         return View(trail);
     }
 

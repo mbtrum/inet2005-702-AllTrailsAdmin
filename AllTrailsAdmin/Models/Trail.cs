@@ -9,6 +9,7 @@ namespace AllTrailsAdmin.Models
         public int Id { get; set; }
 
         // foreign key
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         // navigation property
