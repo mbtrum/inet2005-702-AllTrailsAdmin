@@ -35,7 +35,7 @@ namespace AllTrailsAdmin.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("AllTrailsAdmin.Models.Trail", b =>
@@ -80,7 +80,7 @@ namespace AllTrailsAdmin.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Trail");
+                    b.ToTable("Trail", (string)null);
                 });
 
             modelBuilder.Entity("AllTrailsAdmin.Models.Trail", b =>
