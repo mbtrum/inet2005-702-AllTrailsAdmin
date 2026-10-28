@@ -1,7 +1,9 @@
 using AllTrailsAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize(Roles = "administrator")]
 public class CategoriesController : Controller
 {
     private readonly AllTrailsAdminContext _context;
