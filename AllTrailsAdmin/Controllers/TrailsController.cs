@@ -1,3 +1,4 @@
+using AllTrailsAdmin;
 using AllTrailsAdmin.Models;
 using AllTrailsAdmin.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +21,14 @@ public class TrailsController : Controller
     // GET: TRAILS
     public async Task<IActionResult> Index()    
     {
+        // Log the currently logged in user
+        //var user = User.GetUserId();
+        //if (user != null) 
+        //{
+        //    Console.WriteLine("Logged in user: " + user);
+        //}
+
+
         // Retrieve all trails from the database
         List<Trail> trails = await _context.Trail
             .Include(m => m.Category)

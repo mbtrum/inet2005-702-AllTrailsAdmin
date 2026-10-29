@@ -9,7 +9,7 @@ public class CategoriesController : Controller
     private readonly AllTrailsAdminContext _context;
 
     public CategoriesController(AllTrailsAdminContext context)
-    {
+    {        
         _context = context;
     }
 

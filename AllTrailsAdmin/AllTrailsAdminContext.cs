@@ -5,4 +5,6 @@ public class AllTrailsAdminContext(DbContextOptions<AllTrailsAdminContext> optio
     public DbSet<AllTrailsAdmin.Models.Trail> Trail { get; set; } = default!;
 
     public DbSet<AllTrailsAdmin.Models.Category> Category { get; set; } = default!;
+
+    public DbSet<AllTrailsAdmin.Models.HikerReview> HikerReview { get; set; } = default!;
 }
