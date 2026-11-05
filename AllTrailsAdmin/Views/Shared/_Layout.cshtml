@@ -31,15 +31,20 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Trails" asp-action="Index">Trails</a>
                             </li>
+                            
                             @if (User.IsInRole("administrator"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="HikerReviews" asp-action="Index">My Reviews</a>
-                            </li>
+
+                            @if (User.IsInRole("hiker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="HikerReviews" asp-action="Index">My Reviews</a>
+                                </li>
+                            }
                         }
                     </ul>
                     @* Auth0 - Login and logout links*@

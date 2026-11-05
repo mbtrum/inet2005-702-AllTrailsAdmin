@@ -62,6 +62,10 @@
     </dd>
 </dl>
 
+<div class="mb-3">
+    <a asp-controller="HikerReviews" asp-action="Create" asp-route-trailId="@Model.Id" class="btn btn-primary">Post Review</a>
+</div>
+
 <div>
     @if (User.IsInRole("administrator")) {
         <span>

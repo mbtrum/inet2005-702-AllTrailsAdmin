@@ -1,10 +1,12 @@
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AllTrailsAdmin.Models;
 using AllTrailsAdmin;
+using AllTrailsAdmin.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.EntityFrameworkCore;
 
+[Authorize(Roles = "hiker")]
 public class HikerReviewsController : Controller
 {
     private readonly AllTrailsAdminContext _context;
@@ -48,7 +50,9 @@ public class HikerReviewsController : Controller
         }
 
         var hikerreview = await _context.HikerReview
+            .Where(m => m.CreatedBy == _userId)
             .FirstOrDefaultAsync(m => m.Id == id);
+
         if (hikerreview == null)
         {
             return NotFound();
@@ -58,8 +62,10 @@ public class HikerReviewsController : Controller
     }
 
     // GET: HIKERREVIEWS/Create
-    public IActionResult Create()
+    public IActionResult Create(int trailId)
     {
+        ViewBag.TrailId = trailId;
+
         return View();
     }
 
@@ -68,15 +74,21 @@ public class HikerReviewsController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,TrailId,Description,Rating,IsPublished,CreatedBy,CreatedDate")] HikerReview hikerreview)
+    public async Task<IActionResult> Create([Bind("Id,TrailId,Description,Rating,IsPublished")] HikerReview hikerReview)
     {
+        // Initialize some fields
+        hikerReview.CreatedBy = _userId;
+        hikerReview.CreatedDate = DateTime.Now;
+
         if (ModelState.IsValid)
         {
-            _context.Add(hikerreview);
+            _context.Add(hikerReview);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
-        return View(hikerreview);
+
+        return View(hikerReview);
     }
 
     // GET: HIKERREVIEWS/Edit/5

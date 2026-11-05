@@ -23,7 +23,7 @@ builder.Services.Configure<OpenIdConnectOptions>(Auth0Constants.AuthenticationSc
     options.TokenValidationParameters = new TokenValidationParameters
     {
         NameClaimType = "name",
-        RoleClaimType = "https://localhost:7152/roles" // change to your app's domain
+        RoleClaimType = "https://someurl.com/roles" // change to your app's domain
     };
 });
 // End - Auth0
